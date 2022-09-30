@@ -39,6 +39,7 @@ namespace MySqlEfCore.Controllers
             }
         }
 
+        [HttpPost("/api/people")]
         public ActionResult AddPerson([FromBody] Person credentials)
         {
             try
