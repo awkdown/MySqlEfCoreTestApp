@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using MySqlEfCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,17 @@ namespace MySqlEfCore.Data
 {
     public class MyDbContext : DbContext
     {
+        // Database tables for the Quiz game
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Player> Players { get; set; }
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<QuizCategoryLength> QuizCategoryLengths { get; set; }        
+        public DbSet<QuizGame> QuizGames { get; set; }
+        public DbSet<QuizGameQuestion> QuizGameQuestions { get; set; }
+
+        // Database table for the Leaderboard
+        public DbSet<LeaderboardEntry> LeaderboardEntries { get; set; }
+
         public MyDbContext(DbContextOptions<MyDbContext> options) : base(options)
         {
 

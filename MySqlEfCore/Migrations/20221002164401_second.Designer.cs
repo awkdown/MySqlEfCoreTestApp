@@ -8,8 +8,8 @@ using MySqlEfCore.Data;
 namespace MySqlEfCore.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20220930124423_Initial")]
-    partial class Initial
+    [Migration("20221002164401_second")]
+    partial class second
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

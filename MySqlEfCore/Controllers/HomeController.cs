@@ -14,12 +14,10 @@ namespace MySqlEfCore.Controllers
     [Route("[controller]")]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly MyDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger, MyDbContext context)
+        public HomeController(MyDbContext context)    //constructor
         {
-            _logger = logger;
             _context = context;
         }
 
@@ -31,7 +29,16 @@ namespace MySqlEfCore.Controllers
                 List<Person> people =
                     (from p in _context.person
                      select p).ToList();
-                return Ok(people);
+                List<PersonInfo> peopleInfo = new List<PersonInfo>();
+                foreach(var p in people)
+                {
+                    PersonInfo pi = new PersonInfo();
+                    pi.FirstName = p.FirstName;
+                    pi.LastName = p.LastName;
+                    pi.Age = p.Age;
+                    peopleInfo.Add(pi);
+                }
+                return Ok(peopleInfo);
             }
             catch(Exception ex) when (ex is FormatException || ex is ArgumentException)
             {
