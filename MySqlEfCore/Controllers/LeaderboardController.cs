@@ -34,8 +34,20 @@ namespace MySqlEfCore.Controllers
                 List<LeaderboardEntry> entries =
                     (from e in _context.LeaderboardEntries
                      select e).ToList();
-                return Ok(entries);
+
+                List<LeaderboardRow> rows = new List<LeaderboardRow>();
+                foreach (var e in entries)
+                {
+                    LeaderboardRow r = new LeaderboardRow();
+                    r.TeamCode = e.TeamCode;
+                    r.TeamName = e.TeamName;
+                    r.Score = e.Score;
+                    r.League = e.League;
+                    rows.Add(r);
+                }
+                return Ok(rows);
             }
+
             catch (Exception ex) when (ex is FormatException || ex is ArgumentException)
             {
                 return Conflict();
