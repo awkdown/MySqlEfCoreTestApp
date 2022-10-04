@@ -9,7 +9,7 @@ using MySqlEfCore.Data;
 namespace MySqlEfCore.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20221004054900_initial")]
+    [Migration("20221004133336_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -100,9 +100,9 @@ namespace MySqlEfCore.Migrations
 
             modelBuilder.Entity("MySqlEfCore.Models.Question", b =>
                 {
-                    b.Property<int>("QuestionId")
+                    b.Property<byte[]>("QuestionId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("varbinary(16)");
 
                     b.Property<string>("AnswerA")
                         .HasColumnType("text");
@@ -123,6 +123,9 @@ namespace MySqlEfCore.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("QuestionText")
+                        .HasColumnType("text");
+
+                    b.Property<string>("QuestionType")
                         .HasColumnType("text");
 
                     b.HasKey("QuestionId");

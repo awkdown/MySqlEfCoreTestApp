@@ -70,8 +70,8 @@ namespace MySqlEfCore.Migrations
                 name: "Questions",
                 columns: table => new
                 {
-                    QuestionId = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    QuestionId = table.Column<byte[]>(nullable: false),
+                    QuestionType = table.Column<string>(nullable: true),
                     CategoryId = table.Column<int>(nullable: false),
                     QuestionText = table.Column<string>(nullable: true),
                     AnswerA = table.Column<string>(nullable: true),

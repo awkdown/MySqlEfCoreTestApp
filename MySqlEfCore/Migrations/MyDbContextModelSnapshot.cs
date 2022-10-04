@@ -98,9 +98,9 @@ namespace MySqlEfCore.Migrations
 
             modelBuilder.Entity("MySqlEfCore.Models.Question", b =>
                 {
-                    b.Property<int>("QuestionId")
+                    b.Property<byte[]>("QuestionId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("varbinary(16)");
 
                     b.Property<string>("AnswerA")
                         .HasColumnType("text");
@@ -121,6 +121,9 @@ namespace MySqlEfCore.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("QuestionText")
+                        .HasColumnType("text");
+
+                    b.Property<string>("QuestionType")
                         .HasColumnType("text");
 
                     b.HasKey("QuestionId");

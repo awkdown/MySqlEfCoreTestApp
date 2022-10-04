@@ -15,7 +15,6 @@ namespace MySqlEfCore.Controllers
 {
     [ApiController]
     [Route("[controller]")] //default uri is /category
-
     public class CategoryController : Controller
     {
         private readonly MyDbContext _context;    //database context

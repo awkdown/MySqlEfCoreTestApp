@@ -8,8 +8,8 @@ namespace MySqlEfCore.Models
 {
     public class Question
     {
-        [Key]
-        public int QuestionId { get; set; }
+        public Guid QuestionId { get; set; }
+        public string QuestionType { get; set; }
         public int CategoryId { get; set; }
         public string QuestionText { get; set; }
         public string AnswerA { get; set; }
