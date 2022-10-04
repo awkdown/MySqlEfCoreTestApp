@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using MySql.EntityFrameworkCore.Metadata;
 
 namespace MySqlEfCore.Migrations
 {
-    public partial class third : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,13 +12,13 @@ namespace MySqlEfCore.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    CategoryId = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<byte[]>(nullable: false),
+                    CategoryId = table.Column<int>(nullable: false),
                     CategoryName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.CategoryId);
+                    table.PrimaryKey("PK_Categories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -34,6 +35,22 @@ namespace MySqlEfCore.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_LeaderboardEntries", x => x.LeaderboardId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "person",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    FirstName = table.Column<string>(maxLength: 50, nullable: true),
+                    LastName = table.Column<string>(maxLength: 50, nullable: true),
+                    Age = table.Column<int>(nullable: false),
+                    IsPlayer = table.Column<ulong>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_person", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -72,8 +89,7 @@ namespace MySqlEfCore.Migrations
                 name: "QuizCategoryLengths",
                 columns: table => new
                 {
-                    QuizCategoryLengthId = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    QuizCategoryLengthId = table.Column<byte[]>(nullable: false),
                     CategoryId = table.Column<int>(nullable: false),
                     NumberOfQuestions = table.Column<int>(nullable: false)
                 },
@@ -123,6 +139,9 @@ namespace MySqlEfCore.Migrations
 
             migrationBuilder.DropTable(
                 name: "LeaderboardEntries");
+
+            migrationBuilder.DropTable(
+                name: "person");
 
             migrationBuilder.DropTable(
                 name: "Players");

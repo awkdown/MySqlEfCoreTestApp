@@ -9,7 +9,7 @@ namespace MySqlEfCore.Models
     public class QuizCategoryLength
     {
         [Key]
-        public int QuizCategoryLengthId { get; set; }
+        public Guid QuizCategoryLengthId { get; set; }
         public int CategoryId { get; set; }
         public int NumberOfQuestions { get; set; }
     }

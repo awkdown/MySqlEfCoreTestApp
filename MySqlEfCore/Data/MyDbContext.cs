@@ -33,6 +33,7 @@ namespace MySqlEfCore.Data
             base.OnModelCreating(modelBuilder);
            // modelBuilder.Entity<Person>(e => e.Property(o => o.Age).HasColumnType("tinyint(1)").HasConversion<short>());
             modelBuilder.Entity<Person>(e => e.Property(o => o.IsPlayer).HasConversion(new BoolToZeroOneConverter<Int16>()).HasColumnType("bit"));
+            //modelBuilder.Entity<Category>().HasKey(b => b.Id);
         }
     }
 }

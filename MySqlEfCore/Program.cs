@@ -25,6 +25,8 @@ namespace MySqlEfCore
                 try
                 {
                     SeedLeaderboard.Initialize(services);
+                    SeedCategories.Initialize(services);
+                    SeedQuizCategoryLength.Initialize(services);
                 }
                 catch (Exception ex)
                 {

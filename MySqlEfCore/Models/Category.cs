@@ -8,8 +8,11 @@ namespace MySqlEfCore.Models
 {
     public class Category
     {
-        [Key]
+        
+        public Guid Id { get; set; }
+                
         public int CategoryId { get; set; }
+
         public string CategoryName { get; set; }
     }
 }
