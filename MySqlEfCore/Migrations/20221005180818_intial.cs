@@ -4,7 +4,7 @@ using MySql.EntityFrameworkCore.Metadata;
 
 namespace MySqlEfCore.Migrations
 {
-    public partial class initial : Migration
+    public partial class intial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -57,8 +57,7 @@ namespace MySqlEfCore.Migrations
                 name: "Players",
                 columns: table => new
                 {
-                    PlayerId = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    PlayerId = table.Column<byte[]>(nullable: false),
                     PlayerName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -102,10 +101,9 @@ namespace MySqlEfCore.Migrations
                 name: "QuizGameQuestions",
                 columns: table => new
                 {
-                    QuizGameQuestionId = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    QuizGameId = table.Column<int>(nullable: false),
-                    QuestionId = table.Column<int>(nullable: false),
+                    QuizGameQuestionId = table.Column<byte[]>(nullable: false),
+                    QuizGameId = table.Column<byte[]>(nullable: false),
+                    QuestionId = table.Column<byte[]>(nullable: false),
                     QuestionPosition = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -117,10 +115,9 @@ namespace MySqlEfCore.Migrations
                 name: "QuizGames",
                 columns: table => new
                 {
-                    QuizGameId = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    AppId = table.Column<int>(nullable: false),
-                    PlayerId = table.Column<int>(nullable: false),
+                    QuizGameId = table.Column<byte[]>(nullable: false),
+                    AppId = table.Column<string>(nullable: true),
+                    PlayerId = table.Column<byte[]>(nullable: false),
                     CategoryId = table.Column<int>(nullable: false),
                     QuizGameLength = table.Column<int>(nullable: false),
                     CurrentQuestionPosition = table.Column<int>(nullable: false),

@@ -9,40 +9,43 @@ using System.IO;
 
 namespace MySqlEfCore.Data
 {
-    public class SeedCategories
+    public class SeedLeaderboard
     {
         public static void Initialize(IServiceProvider serviceProvider)
         {
             using (var context = new MyDbContext(serviceProvider.GetRequiredService<DbContextOptions<MyDbContext>>()))
             {
                 // Look for any entries in the Leaderboard
-                if (context.Categories.Any())
+                if (context.LeaderboardEntries.Any())
                 {
                     return;   // DB has been seeded, so do nothing
                 }
 
-                List<Category> categories = new List<Category>();
-                using (var reader = new StreamReader(@".\Data\Categories.csv"))
+                List<LeaderboardEntry> leaderboardEntries = new List<LeaderboardEntry>();
+                using (var reader = new StreamReader(@".\Data\Seeding\LeaderboardEntries.csv"))
                 {
                     while (!reader.EndOfStream)
                     {
                         var line = reader.ReadLine();
                         var values = line.Split(',');
 
-                        Category entry = new Category();
-                       // entry.Id = int.Parse(values[0]);
-                        entry.CategoryId = int.Parse(values[0]);
-                        entry.CategoryName = values[1];
+                        LeaderboardEntry entry = new LeaderboardEntry();
 
-                        categories.Add(entry);
+                        entry.LeaderboardId = int.Parse(values[0]);
+                        entry.TeamCode = values[1];
+                        entry.TeamName = values[2];
+                        entry.Score = int.Parse(values[3]);
+                        entry.League = int.Parse(values[4]);
+
+                        leaderboardEntries.Add(entry);
                     }
                 }
 
-                context.Categories.AddRange(categories);
+                context.LeaderboardEntries.AddRange(
+                    leaderboardEntries
+                );
                 context.SaveChanges();
             }
         }
-
-
     }
 }

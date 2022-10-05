@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using System.Linq;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -23,16 +25,73 @@ namespace MySqlEfCore.Controllers
         }
 
         [HttpPost("/api/game")]
-        public ActionResult AddGame([FromBody] QuizGame credentials)
+        public ActionResult<Guid> AddGame([FromBody] NewQuizInfo credentials)
         {
             try
             {
+                // make a new player
+                ///////////////////////
                 Player player = new Player();
-                player.PlayerName = credentials.
+                player.PlayerName = credentials.PlayerName;
+                _context.Players.Add(player);
+                _context.SaveChanges();
+
+                // make a new quiz for this player to play
+                //////////////////////////////////////////////
+                QuizGame quiz = new QuizGame();
+                // player Id comes from player object by magic after the database has been updated
+                quiz.PlayerId = player.PlayerId;
+
+                // app id string and quiz length come from the player supplied object
+                quiz.AppId = credentials.AppID;
+
+                // Should we check that this length is really valid???
+                //
+                //  *** YESSS!!!!! *** DO IT
+                //
+                quiz.QuizGameLength = credentials.QuizLength;
+
+                quiz.CurrentQuestionPosition = 0;
+                quiz.Score = 0;
+
+                // find category ID from category name
+                quiz.CategoryId =
+                    (from c in _context.Categories
+                     where credentials.CategoryName == c.CategoryName
+                     select c.CategoryId).FirstOrDefault();
+
+                _context.QuizGames.Add(quiz);
+                _context.SaveChanges();
+
+                // build the quiz question set
+                ///////////////////////////////////////
+
+                // grab a random list of questions
+                Random rnd = new Random();
+                List<Question> questionList =
+                    (from q in _context.Questions
+                     //orderby rnd.Next()
+                     select q).Take(quiz.QuizGameLength).ToList();
+
+                int questionIdx = 0;
+                List<QuizGameQuestion> questionSet = new List<QuizGameQuestion>();
+                foreach(Question q in questionList)
+                {
+                    QuizGameQuestion question = new QuizGameQuestion();
+                    question.QuestionPosition = questionIdx;
+                    question.QuizGameId = quiz.QuizGameId;
+                    question.QuestionId = q.QuestionId;
+                    questionIdx++;
+                    questionSet.Add(question);
+                }
+
+                _context.QuizGameQuestions.AddRange(questionSet);
+                _context.SaveChanges();
+
                 //credentials.
                 //_context.QuizGames.Add(credentials);
                 //_context.SaveChanges();
-                return Ok();
+                return Ok(quiz.QuizGameId);
             }
             catch (Exception ex)
             {

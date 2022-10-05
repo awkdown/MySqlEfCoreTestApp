@@ -9,8 +9,8 @@ using MySqlEfCore.Data;
 namespace MySqlEfCore.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20221004133336_initial")]
-    partial class initial
+    [Migration("20221005180818_intial")]
+    partial class intial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -86,9 +86,9 @@ namespace MySqlEfCore.Migrations
 
             modelBuilder.Entity("MySqlEfCore.Models.Player", b =>
                 {
-                    b.Property<int>("PlayerId")
+                    b.Property<byte[]>("PlayerId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("varbinary(16)");
 
                     b.Property<string>("PlayerName")
                         .HasColumnType("text");
@@ -152,12 +152,12 @@ namespace MySqlEfCore.Migrations
 
             modelBuilder.Entity("MySqlEfCore.Models.QuizGame", b =>
                 {
-                    b.Property<int>("QuizGameId")
+                    b.Property<byte[]>("QuizGameId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("varbinary(16)");
 
-                    b.Property<int>("AppId")
-                        .HasColumnType("int");
+                    b.Property<string>("AppId")
+                        .HasColumnType("text");
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
@@ -165,8 +165,9 @@ namespace MySqlEfCore.Migrations
                     b.Property<int>("CurrentQuestionPosition")
                         .HasColumnType("int");
 
-                    b.Property<int>("PlayerId")
-                        .HasColumnType("int");
+                    b.Property<byte[]>("PlayerId")
+                        .IsRequired()
+                        .HasColumnType("varbinary(16)");
 
                     b.Property<int>("QuizGameLength")
                         .HasColumnType("int");
@@ -181,18 +182,20 @@ namespace MySqlEfCore.Migrations
 
             modelBuilder.Entity("MySqlEfCore.Models.QuizGameQuestion", b =>
                 {
-                    b.Property<int>("QuizGameQuestionId")
+                    b.Property<byte[]>("QuizGameQuestionId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("varbinary(16)");
 
-                    b.Property<int>("QuestionId")
-                        .HasColumnType("int");
+                    b.Property<byte[]>("QuestionId")
+                        .IsRequired()
+                        .HasColumnType("varbinary(16)");
 
                     b.Property<int>("QuestionPosition")
                         .HasColumnType("int");
 
-                    b.Property<int>("QuizGameId")
-                        .HasColumnType("int");
+                    b.Property<byte[]>("QuizGameId")
+                        .IsRequired()
+                        .HasColumnType("varbinary(16)");
 
                     b.HasKey("QuizGameQuestionId");
 

@@ -8,8 +8,7 @@ namespace MySqlEfCore.Models
 {
     public class Player
     {
-        [Key]
-        public int PlayerId { get; set; }
+        public Guid PlayerId { get; set; }
         public string PlayerName { get; set; }
 //        public double PlayerLatitude { get; set; }
 //        public double PlayerLongitude { get; set; }

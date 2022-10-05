@@ -9,41 +9,41 @@ using System.IO;
 
 namespace MySqlEfCore.Data
 {
-    public class SeedLeaderboard
+    public class SeedQuestions
     {
         public static void Initialize(IServiceProvider serviceProvider)
         {
             using (var context = new MyDbContext(serviceProvider.GetRequiredService<DbContextOptions<MyDbContext>>()))
             {
                 // Look for any entries in the Leaderboard
-                if (context.LeaderboardEntries.Any())
+                if (context.Questions.Any())
                 {
                     return;   // DB has been seeded, so do nothing
                 }
 
-                List<LeaderboardEntry> leaderboardEntries = new List<LeaderboardEntry>();
-                using (var reader = new StreamReader(@".\Data\LeaderboardEntries.csv"))
+                List<Question> questions = new List<Question>();
+                using (var reader = new StreamReader(@".\Data\Seeding\Questions.csv"))
                 {
                     while (!reader.EndOfStream)
                     {
                         var line = reader.ReadLine();
                         var values = line.Split(',');
 
-                        LeaderboardEntry entry = new LeaderboardEntry();
+                        Question entry = new Question();
+                        entry.QuestionType = values[0];
+                        entry.CategoryId = int.Parse(values[1]);
+                        entry.QuestionText = values[2];
+                        entry.AnswerA = values[3];
+                        entry.AnswerB = values[4];
+                        entry.AnswerC = values[5];
+                        entry.AnswerD = values[6];
+                        entry.CorrectAnswer = values[7];
 
-                        entry.LeaderboardId = int.Parse(values[0]);
-                        entry.TeamCode = values[1];
-                        entry.TeamName = values[2];
-                        entry.Score = int.Parse(values[3]);
-                        entry.League = int.Parse(values[4]);
-
-                        leaderboardEntries.Add(entry);
+                        questions.Add(entry);
                     }
                 }
 
-                context.LeaderboardEntries.AddRange(
-                    leaderboardEntries
-                );
+                context.Questions.AddRange(questions);
                 context.SaveChanges();
             }
         }

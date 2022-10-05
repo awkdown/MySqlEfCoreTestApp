@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
+// FOR TESTING WITH HOME CONTROLLER
+
 namespace MySqlEfCore.Data
 {
     public class Person

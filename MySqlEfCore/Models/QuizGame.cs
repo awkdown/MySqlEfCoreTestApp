@@ -8,10 +8,9 @@ namespace MySqlEfCore.Models
 {
     public class QuizGame
     {
-        [Key]
-        public int QuizGameId { get; set; }
-        public int AppId { get; set; }
-        public int PlayerId { get; set; }
+        public Guid QuizGameId { get; set; }
+        public string AppId { get; set; }
+        public Guid PlayerId { get; set; }
         public int CategoryId { get; set; }
         public int QuizGameLength { get; set; }
         public int CurrentQuestionPosition { get; set; }

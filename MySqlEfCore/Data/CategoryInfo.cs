@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace MySqlEfCore.Data
 {
+    //Object returned from GET categories by CategoryController
     public class CategoryInfo
     {
         public string CategoryName { get; set; }

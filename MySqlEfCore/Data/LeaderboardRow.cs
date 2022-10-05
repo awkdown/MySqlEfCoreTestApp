@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace MySqlEfCore.Data
 {
+    //Object returned from GET leaderboard by LeaderboardController
     public class LeaderboardRow
     {
         public string TeamCode { get; set; }
