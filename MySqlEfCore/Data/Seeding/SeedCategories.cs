@@ -22,7 +22,7 @@ namespace MySqlEfCore.Data
                 }
 
                 List<Category> categories = new List<Category>();
-                using (var reader = new StreamReader(@".\Data\Seeding\Categories.csv"))
+                using (var reader = new StreamReader(Path.Combine(".", "Data", "Seeding", "Categories.csv")))
                 {
                     while (!reader.EndOfStream)
                     {
@@ -30,7 +30,7 @@ namespace MySqlEfCore.Data
                         var values = line.Split(',');
 
                         Category entry = new Category();
-                       // entry.Id = int.Parse(values[0]);
+                        // entry.Id = int.Parse(values[0]);
                         entry.CategoryId = int.Parse(values[0]);
                         entry.CategoryName = values[1];
 

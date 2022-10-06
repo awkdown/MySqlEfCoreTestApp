@@ -22,7 +22,7 @@ namespace MySqlEfCore.Data
                 }
 
                 List<LeaderboardEntry> leaderboardEntries = new List<LeaderboardEntry>();
-                using (var reader = new StreamReader(@".\Data\Seeding\LeaderboardEntries.csv"))
+                using (var reader = new StreamReader(Path.Combine(".", "Data", "Seeding", "LeaderboardEntries.csv")))
                 {
                     while (!reader.EndOfStream)
                     {

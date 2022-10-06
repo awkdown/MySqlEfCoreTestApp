@@ -22,7 +22,7 @@ namespace MySqlEfCore.Data
                 }
 
                 List<Question> questions = new List<Question>();
-                using (var reader = new StreamReader(@".\Data\Seeding\Questions.csv"))
+                using (var reader = new StreamReader(Path.Combine(".", "Data", "Seeding", "Questions.csv")))
                 {
                     while (!reader.EndOfStream)
                     {

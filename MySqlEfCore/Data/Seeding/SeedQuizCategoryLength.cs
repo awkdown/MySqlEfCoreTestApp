@@ -22,7 +22,7 @@ namespace MySqlEfCore.Data
                 }
 
                 List<QuizCategoryLength> lengths = new List<QuizCategoryLength>();
-                using (var reader = new StreamReader(@".\Data\Seeding\QuizCategoryLengths.csv"))
+                using (var reader = new StreamReader(Path.Combine(".", "Data", "Seeding", "QuizCategoryLengths.csv")))
                 {
                     while (!reader.EndOfStream)
                     {
