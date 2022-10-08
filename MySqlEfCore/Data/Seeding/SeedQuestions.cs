@@ -38,6 +38,15 @@ namespace MySqlEfCore.Data
                         entry.AnswerC = values[5];
                         entry.AnswerD = values[6];
                         entry.CorrectAnswer = values[7];
+                        entry.UseLatLong = bool.Parse(values[8]);
+
+                        if(entry.UseLatLong)
+                        {
+                            entry.QuestionLatitude = double.Parse(values[9]);
+                            entry.QuestionLongitude = double.Parse(values[10]);
+                        }
+
+                        entry.Hint = values[11];
 
                         questions.Add(entry);
                     }

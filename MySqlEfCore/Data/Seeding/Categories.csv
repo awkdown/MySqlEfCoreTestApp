@@ -1,3 +1,5 @@
-﻿0,baby
-1,education
-2,medical
+﻿0,baby,true
+1,education,true
+2,medical,true
+21,location_text_test,false
+30,location_mcq_text_test,false

@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MySqlEfCore.Data;
 
 namespace MySqlEfCore.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221008193539_second")]
+    partial class second
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -126,10 +128,10 @@ namespace MySqlEfCore.Migrations
                     b.Property<string>("Hint")
                         .HasColumnType("text");
 
-                    b.Property<double?>("QuestionLatitude")
+                    b.Property<double>("QuestionLatitude")
                         .HasColumnType("double");
 
-                    b.Property<double?>("QuestionLongitude")
+                    b.Property<double>("QuestionLongitude")
                         .HasColumnType("double");
 
                     b.Property<string>("QuestionText")

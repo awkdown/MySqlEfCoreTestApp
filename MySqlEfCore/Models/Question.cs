@@ -17,9 +17,9 @@ namespace MySqlEfCore.Models
         public string AnswerC { get; set; }
         public string AnswerD { get; set; }
         public string CorrectAnswer { get; set; }
-//      public string QuestionHint { get; set; }
-//      public double QuestionLatitude { get; set; }
-//      public double QuestionLongitude { get; set; }
-//      public string LocationHint { get; set; }
+        public bool UseLatLong  { get; set; }
+        public double? QuestionLatitude { get; set; }
+        public double? QuestionLongitude { get; set; }
+        public string Hint { get; set; }
     }
 }

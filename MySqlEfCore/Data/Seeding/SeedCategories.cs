@@ -15,7 +15,7 @@ namespace MySqlEfCore.Data
         {
             using (var context = new MyDbContext(serviceProvider.GetRequiredService<DbContextOptions<MyDbContext>>()))
             {
-                // Look for any entries in the Leaderboard
+                // Look for any entries in the Category table
                 if (context.Categories.Any())
                 {
                     return;   // DB has been seeded, so do nothing
@@ -33,6 +33,7 @@ namespace MySqlEfCore.Data
                         // entry.Id = int.Parse(values[0]);
                         entry.CategoryId = int.Parse(values[0]);
                         entry.CategoryName = values[1];
+                        entry.Enabled = bool.Parse(values[2]);
 
                         categories.Add(entry);
                     }

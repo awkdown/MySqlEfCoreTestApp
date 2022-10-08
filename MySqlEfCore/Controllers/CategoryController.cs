@@ -31,8 +31,10 @@ namespace MySqlEfCore.Controllers
             {
                 List<CategoryInfo> result = new List<CategoryInfo>();
  
+                // make a list of enabled categories
                 List<Category> categories =
                     (from c in _context.Categories
+                     where c.Enabled
                      select c).ToList();
 
                 foreach (var c in categories)
