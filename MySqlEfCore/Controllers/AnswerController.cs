@@ -55,9 +55,9 @@ namespace MySqlEfCore.Controllers
                 }
 
                 AnswerResponseInfo responseInfo = new AnswerResponseInfo();
-                responseInfo.ResponseText = isCorrect ? "correct" : "incorrect";
-                if (guess.Answer != "Pass")
-                    responseInfo.ResponseText = "passed";
+                responseInfo.Result = isCorrect ? "correct" : "incorrect";
+                if (guess.Answer == "Pass")
+                    responseInfo.Result = "passed";
 
                 if (isCorrect)
                 {

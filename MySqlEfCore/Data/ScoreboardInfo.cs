@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace MySqlEfCore.Data
 {
-    public class AnswerResponseInfo
+    public class ScoreboardInfo
     {
-        public string Result { get; set; }
-
+        public string Name { get; set; }
+        public int Score { get; set; }
     }
 }
