@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MySqlEfCore.Data;
+using MySqlEfCore.Data.Seeding;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,7 @@ namespace MySqlEfCore
                     SeedCategories.Initialize(services);
                     SeedQuizCategoryLength.Initialize(services);
                     SeedQuestions.Initialize(services);
+                    SeedControl.Initialize(services);
                 }
                 catch (Exception ex)
                 {

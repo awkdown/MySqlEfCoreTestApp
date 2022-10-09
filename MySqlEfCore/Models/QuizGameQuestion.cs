@@ -17,8 +17,8 @@ namespace MySqlEfCore.Models
         public int QuestionPosition { get; set; }
 
 
-//      public bool LocationHintUsed { get; set; }
-//      public bool QuestionHintUsed { get; set; }
+        public bool LocationHintUsed { get; set; }
+        public bool QuestionHintUsed { get; set; }
 
     }
 }

@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace MySqlEfCore.Models
 {
-    public class Player
-    {
-        public Guid PlayerId { get; set; }
-        public string PlayerName { get; set; }
-//        public double PlayerLatitude { get; set; }
-//        public double PlayerLongitude { get; set; }
+//    public class Player
+//    {
+////        public Guid PlayerId { get; set; }
+////        public string PlayerName { get; set; }
+////        public double PlayerLatitude { get; set; }
+////        public double PlayerLongitude { get; set; }
 
-    }
+//    }
 }

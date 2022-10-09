@@ -29,20 +29,12 @@ namespace MySqlEfCore.Controllers
         {
             try
             {
-                // make a new player
-                ///////////////////////
-                Player player = new Player();
-                player.PlayerName = credentials.PlayerName;
-                _context.Players.Add(player);
-                _context.SaveChanges();
-
                 // make a new quiz for this player to play
                 //////////////////////////////////////////////
                 QuizGame quiz = new QuizGame();
-                // player Id comes from player object by magic after the database has been updated
-                quiz.PlayerId = player.PlayerId;
 
-                // app id string and quiz length come from the player supplied object
+                // app id, player name and quiz length come from the player supplied object
+                quiz.PlayerName = credentials.PlayerName;
                 quiz.AppId = credentials.AppID;
 
                 // Should we check that this length is really valid???
@@ -53,6 +45,8 @@ namespace MySqlEfCore.Controllers
 
                 quiz.CurrentQuestionPosition = 0;
                 quiz.Score = 0;
+                quiz.PlayerLatitude  = 63.445012; // The centre of Hell!
+                quiz.PlayerLongitude = 10.905281; //
 
                 // find category ID from category name
                 quiz.CategoryId =
@@ -70,6 +64,7 @@ namespace MySqlEfCore.Controllers
                 Random rnd = new Random();
                 List<Question> questionList =
                     (from q in _context.Questions
+                     where q.CategoryId == quiz.CategoryId
                      //orderby rnd.Next()
                      select q).Take(quiz.QuizGameLength).ToList();
 

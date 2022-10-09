@@ -40,9 +40,7 @@ namespace MySqlEfCore.Controllers
                 {
                     ScoreboardInfo si = new ScoreboardInfo();
                     si.Score = g.Score;
-                    si.Name = (from p in _context.Players
-                                  where p.PlayerId == g.PlayerId
-                                  select p.PlayerName).First();
+                    si.Name = g.PlayerName;
 
                     result.Add(si);
                 }

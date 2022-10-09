@@ -12,11 +12,13 @@ namespace MySqlEfCore.Data
     {
         // Database tables for the Quiz game
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Player> Players { get; set; }
+        // public DbSet<Player> Players { get; set; } // Player merged with QuizGame
         public DbSet<Question> Questions { get; set; }
         public DbSet<QuizCategoryLength> QuizCategoryLengths { get; set; }        
         public DbSet<QuizGame> QuizGames { get; set; }
         public DbSet<QuizGameQuestion> QuizGameQuestions { get; set; }
+        public DbSet<Control> Controls { get; set; }
+
 
         // Database table for the Leaderboard
         public DbSet<LeaderboardEntry> LeaderboardEntries { get; set; }
