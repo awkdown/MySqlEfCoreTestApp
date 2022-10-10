@@ -24,8 +24,11 @@ namespace MySqlEfCore.Controllers
             _context = context;
         }
 
-        [HttpPost("/api/game")]
-        public ActionResult<Guid> AddGame([FromBody] NewQuizInfo credentials)
+        [HttpGet("/api/game")]
+        public ActionResult<Guid> AddGame([FromQuery(Name = "playerName")]   string playerString,
+                                          [FromQuery(Name = "categoryName")] string categoryString,
+                                          [FromQuery(Name = "appID")]        string appString,
+                                          [FromQuery(Name = "quizLength")]   string lengthString)//[FromBody] NewQuizInfo credentials)
         {
             try
             {
@@ -34,14 +37,14 @@ namespace MySqlEfCore.Controllers
                 QuizGame quiz = new QuizGame();
 
                 // app id, player name and quiz length come from the player supplied object
-                quiz.PlayerName = credentials.PlayerName;
-                quiz.AppId = credentials.AppID;
+                quiz.PlayerName = playerString; //credentials.PlayerName;
+                quiz.AppId = appString; // credentials.AppID;
 
                 // Should we check that this length is really valid???
                 //
                 //  *** YESSS!!!!! *** DO IT
                 //
-                quiz.QuizGameLength = credentials.QuizLength;
+                quiz.QuizGameLength = int.Parse(lengthString); // credentials.QuizLength;
 
                 quiz.CurrentQuestionPosition = 0;
                 quiz.Score = 0;
@@ -51,7 +54,7 @@ namespace MySqlEfCore.Controllers
                 // find category ID from category name
                 quiz.CategoryId =
                     (from c in _context.Categories
-                     where credentials.CategoryName == c.CategoryName
+                     where c.CategoryName == categoryString // credentials.CategoryName
                      select c.CategoryId).FirstOrDefault();
 
                 _context.QuizGames.Add(quiz);

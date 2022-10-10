@@ -25,8 +25,10 @@ namespace MySqlEfCore.Controllers
             _context = context;
         }
 
-        [HttpPost("/api/position")]
-        public ActionResult UpdateLocation([FromQuery(Name = "id")] string gameIdString, [FromBody] PositionInfo newPosition)
+        [HttpGet("/api/position")]
+        public ActionResult UpdateLocation([FromQuery(Name = "id")]        string gameIdString, //[FromBody] PositionInfo newPosition)
+                                           [FromQuery(Name = "latitude")]  string latitudeString,
+                                           [FromQuery(Name = "longitude")] string longitudeString)
         {
             try
             {
@@ -34,8 +36,8 @@ namespace MySqlEfCore.Controllers
                                  where g.QuizGameId == Guid.Parse(gameIdString)
                                  select g).First();
 
-                game.PlayerLatitude = newPosition.Latitude;
-                game.PlayerLongitude = newPosition.Longitude;
+                game.PlayerLatitude = double.Parse(latitudeString); // newPosition.Latitude;
+                game.PlayerLongitude = double.Parse(longitudeString); //newPosition.Longitude;
 
                 _context.SaveChanges();
 

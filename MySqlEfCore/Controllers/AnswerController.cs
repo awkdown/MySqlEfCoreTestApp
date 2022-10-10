@@ -25,8 +25,9 @@ namespace MySqlEfCore.Controllers
             _context = context;
         }
 
-        [HttpPost("/api/answer")]
-        public ActionResult<AnswerResponseInfo> PostAnswer([FromQuery(Name = "id")] string gameIdString, [FromBody] AnswerInfo guess)
+        [HttpGet("/api/answer")]
+        public ActionResult<AnswerResponseInfo> PostAnswer([FromQuery(Name = "id")] string gameIdString, // [FromBody] AnswerInfo guess
+                                                           [FromQuery(Name = "answer")] string answerString )
         {
             try
             {
@@ -40,7 +41,7 @@ namespace MySqlEfCore.Controllers
                 bool moveToNext = false;
 
                 // If the player has passed, skip to the results
-                if (guess.Answer == "Pass")
+                if (answerString == "Pass")
                 {
                     moveToNext = true;
                     responseInfo.Result = "passed";
@@ -71,7 +72,7 @@ namespace MySqlEfCore.Controllers
                     }
 
                     // Set up response and give points for correct answer
-                    if ((question.CorrectAnswer == guess.Answer) && locationOK)
+                    if ((question.CorrectAnswer == answerString) && locationOK)
                     {
                         game.Score += 3;
 
