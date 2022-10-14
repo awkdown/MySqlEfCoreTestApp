@@ -54,5 +54,34 @@ namespace MySqlEfCore.Controllers
             }
         }
 
+        [HttpGet("/api/scoreboardWithId")]
+        public ActionResult<IEnumerable<ScoreBoardInfoWithId>> GetAllEntriesWithId()
+        {
+            try
+            {
+                List<ScoreBoardInfoWithId> result = new List<ScoreBoardInfoWithId>();
+
+                List<QuizGame> gameList =
+                    (from g in _context.QuizGames
+                     select g).ToList();
+
+                foreach (var g in gameList)
+                {
+                    ScoreBoardInfoWithId si = new ScoreBoardInfoWithId();
+                    si.AppId = g.AppId;
+                    si.Score = g.Score;
+                    si.Name = g.PlayerName;
+
+                    result.Add(si);
+                }
+
+                return Ok(result);
+            }
+
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+        }
     }
 }
