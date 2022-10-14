@@ -32,6 +32,12 @@ namespace MySqlEfCore.Controllers
         {
             try
             {
+                Control cvs = (from c in _context.Controls
+                               select c).First();
+
+                if(cvs.THOver)
+                    throw new InvalidOperationException("The Hunt is Over! Go to the Mitchell and Kenyon Cinema in Foster building.");
+
                 Guid gameId = Guid.Parse(gameIdString);
 
                 QuizGame game =

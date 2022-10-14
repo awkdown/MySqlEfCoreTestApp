@@ -13,6 +13,16 @@ using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 
 namespace MySqlEfCore.Controllers
 {
+    public static class Extensions
+    {
+        public static void Swap<T>(this List<T> list, int i, int j)
+        {
+            T temp = list[i];
+            list[i] = list[j];
+            list[j] = temp;
+        }
+    }
+
     [ApiController]
     [Route("[controller]")]
     public class GameController : Controller
@@ -63,14 +73,40 @@ namespace MySqlEfCore.Controllers
                 // build the quiz question set
                 ///////////////////////////////////////
 
-                // grab a random list of questions
-                Random rnd = new Random();
-                List<Question> questionList =
-                    (from q in _context.Questions
-                     where q.CategoryId == quiz.CategoryId
-                     //orderby rnd.Next()
-                     select q).Take(quiz.QuizGameLength).ToList();
+                // grab *all* the questions from the category
+                List<Question> allQuestionsList =
+                (from q in _context.Questions
+                 where q.CategoryId == quiz.CategoryId
+                 select q).ToList();
 
+                // special case for TH - look for one ending "finally" and set flag.
+                int questionCount = allQuestionsList.Count;
+                int LastQuestionIndex = allQuestionsList.FindIndex(p => p.QuestionText.StartsWith("Finally"));
+                bool specialLastQuestion = (LastQuestionIndex != -1);
+
+                // swap the last question to the back end of the list
+                if(specialLastQuestion)
+                    allQuestionsList.Swap(LastQuestionIndex, questionCount - 1);
+
+                // shuffle the list up to but not including the special last question (if there is one)
+                // otherwise shuffle the whole list
+                Random rnd = new Random();
+                int shuffleLimit = specialLastQuestion ? questionCount - 1 : questionCount - 2;
+                int shuffleSwaps = rnd.Next(questionCount);
+
+                for(int shuffle = 0; shuffle < shuffleSwaps; shuffle++)
+                {
+                    allQuestionsList.Swap(rnd.Next(shuffleLimit), rnd.Next(shuffleLimit));
+                }
+
+                // take the required number of questions from the shuffled list
+                List<Question> questionList = allQuestionsList.GetRange(0, quiz.QuizGameLength);
+
+                // replace the lst slected question with the special one if necessary
+                if (specialLastQuestion)
+                    questionList[quiz.QuizGameLength - 1] = allQuestionsList[questionCount - 1];
+
+                // build the game question objects in selected order
                 int questionIdx = 0;
                 List<QuizGameQuestion> questionSet = new List<QuizGameQuestion>();
                 foreach(Question q in questionList)
@@ -96,5 +132,7 @@ namespace MySqlEfCore.Controllers
                 return BadRequest();
             }
         }
+
+
     }
 }
