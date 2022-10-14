@@ -7,7 +7,7 @@ namespace MySqlEfCore.Data
 {
     public class ScoreBoardInfoWithId
     {
-        public string AppId { get; set; };
+        public string AppId { get; set; }
         public string Name { get; set; }
         public int Score { get; set; }
     }
